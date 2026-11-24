@@ -10,11 +10,28 @@ Every narration on this PC uses one voice, so all videos sound like the same pre
 | Setting | Value |
 |---|---|
 | Engine | `edge-tts` (Python package, installed globally; needs internet: it is Microsoft Edge's online voice) |
-| Voice | `en-GB-RyanNeural` |
+| Voice | `en-GB-RyanNeural` (house default) |
 | Rate | `-4%` (a little slower than default) |
 | Output | mp3, 24 kHz mono |
 
 Never change the voice or rate unless the user asks for it.
+
+### Other voices (only when asked)
+
+`narrate.py` takes `--voice` and `--rate`. `--voice` accepts a preset name or any edge-tts voice id:
+
+| Preset | Voice id | |
+|---|---|---|
+| `ryan` | `en-GB-RyanNeural` | house voice — calm British male (default) |
+| `sonia` | `en-GB-SoniaNeural` | British female |
+| `aria` | `en-US-AriaNeural` | US female |
+
+```
+python <this skill's folder>/narrate.py --voice sonia "Text to say." out/intro.mp3
+python <this skill's folder>/narrate.py --voice en-US-GuyNeural --rate=+0% "Text." out/x.mp3   # any edge-tts id works
+```
+
+For a script with **alternating speakers**, give each `--json` clip its own `"voice"` (and optionally `"rate"`): `[{"id": "s01", "text": "...", "voice": "sonia"}, {"id": "s02", "text": "...", "voice": "ryan"}]`. `edge-tts --list-voices` shows the full catalogue (~400 voices).
 
 ## Quick: one clip
 
